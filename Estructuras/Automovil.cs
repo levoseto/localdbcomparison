@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Text.Json;
+﻿using LiteDB;
 using System.Text.Json.Serialization;
-using LiteDB;
 
 namespace Estructuras
 {
-    public partial class Automovil
+    public class Automovil
     {
         [BsonField("_id")]
         public ObjectId? ID { get; set; }
@@ -28,5 +22,20 @@ namespace Estructuras
 
         [JsonPropertyName("serie")]
         public string? Serie { get; set; }
+
+        public Automovil()
+        {
+        }
+
+        [BsonCtor]
+        public Automovil(ObjectId _id, long idAuto, string marca, string modelo, long año, string serie)
+        {
+            ID = _id;
+            IdAuto = idAuto;
+            Marca = marca;
+            Modelo = modelo;
+            Año = año;
+            Serie = serie;
+        }
     }
 }
