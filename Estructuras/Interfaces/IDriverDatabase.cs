@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using System.Data.Common;
 
 namespace Estructuras.Interfaces
 {
@@ -8,8 +7,6 @@ namespace Estructuras.Interfaces
         object GetConnection();
 
         List<T> GetAll<T>();
-
-        void InsertAll(List<BsonDocument> elements);
 
         void Insert<T>(T element);
 

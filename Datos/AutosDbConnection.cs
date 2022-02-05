@@ -1,26 +1,51 @@
 ﻿using Datos.Drivers;
 using Datos.Helpers;
 using Estructuras;
-using Estructuras.Interfaces;
 using LiteDB;
 
 namespace Datos
 {
     public class AutosDbConnection
     {
-        private readonly IDriverDatabase _driverDb;
+        private readonly LiteDbDriverDatabase _driverDb;
 
         public AutosDbConnection()
         {
             _driverDb = new LiteDbDriverDatabase(@"C:\Git\LiteDB\Examples\Autos.db", nameof(Automovil));
         }
 
-        public List<Automovil> Get()
+        public List<Automovil> ObtieneTodos()
         {
             return _driverDb.GetAll<Automovil>();
         }
 
-        public bool InsertAllAutomovil()
+        public Automovil GetById(int id)
+        {
+            try
+            {
+                var todos = ObtieneTodos();
+                return todos.FirstOrDefault(item => item.IdAuto == id)!;
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
+
+        public Automovil GetByIdQuery(int idAuto)
+        {
+            try
+            {
+                var expresionABuscar = Query.EQ("idAuto", idAuto);
+                return _driverDb.GetBy<Automovil>(expresionABuscar);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool InsertaAutomoviles()
         {
             try
             {
@@ -32,6 +57,7 @@ namespace Datos
                 coleccionAutos.ForEach(automovil =>
                 {
                     BsonDocument autoDoc = new BsonDocument();
+                    autoDoc["IdAuto"] = automovil.IdAuto;
                     autoDoc["Marca"] = automovil.Marca;
                     autoDoc["Modelo"] = automovil.Modelo;
                     autoDoc["Año"] = automovil.Año;
@@ -40,20 +66,6 @@ namespace Datos
                 });
 
                 _driverDb.InsertAll(autosAInsertar);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex.GetBaseException();
-            }
-        }
-
-        public bool InsertAutomovil(Automovil automovil)
-        {
-            try
-            {
-                automovil.IdAuto = MaxIdAInsertar();
-                _driverDb.Insert(automovil);
                 return true;
             }
             catch (Exception ex)
@@ -93,9 +105,36 @@ namespace Datos
             }
         }
 
-        private long MaxIdAInsertar()
+        public bool InsertAutomovil(Automovil automovil)
         {
-            var max = Get()?.Count > 0 ? Get().Max(auto => auto.IdAuto) : 0;
+            try
+            {
+                automovil.IdAuto = MaxIdAInsertar();
+                _driverDb.Insert(automovil);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
+
+        public bool ActualizaAutomovil(Automovil automovil)
+        {
+            try
+            {
+                _driverDb.Update(automovil);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
+
+        private int MaxIdAInsertar()
+        {
+            var max = ObtieneTodos()?.Count > 0 ? ObtieneTodos().Max(auto => auto.IdAuto) : 0;
             return max + 1;
         }
     }

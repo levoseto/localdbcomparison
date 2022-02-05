@@ -17,14 +17,24 @@ namespace Negocio
             return _connection.LlenaMasivoAutos();
         }
 
-        public bool LlenaMasivoAutos2()
+        public bool InsertaAutosMasivo()
         {
-            return _connection.InsertAllAutomovil();
+            return _connection.InsertaAutomoviles();
         }
 
         public List<Automovil> Get()
         {
-            return _connection.Get();
+            return _connection.ObtieneTodos();
+        }
+
+        public Automovil ObtienePorIdEnColeccion(int id)
+        {
+            return _connection.GetById(id);
+        }
+
+        public Automovil ObtienePorIdEnQuery(int idAuto)
+        {
+            return _connection.GetByIdQuery(idAuto);
         }
 
         public bool InsertaAuto(Automovil automovil)

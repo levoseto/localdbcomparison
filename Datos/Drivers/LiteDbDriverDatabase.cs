@@ -3,7 +3,7 @@
     using Estructuras.Interfaces;
     using LiteDB;
 
-    public class LiteDbDriverDatabase : IDriverDatabase
+    public class LiteDbDriverDatabase : IDriverDatabase, IBsonDefinition
     {
         private readonly string _collectionName;
         private readonly string _connectionString;
@@ -29,6 +29,21 @@
             }
         }
 
+        public void DeleteBy<T>(BsonExpression expression)
+        {
+            var search = GetBy<T>(expression);
+
+            try
+            {
+                using var db = GetConnection() as LiteDatabase;
+                var col = db?.GetCollection<T>(_collectionName);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public List<T> GetAll<T>()
         {
             try
@@ -36,6 +51,34 @@
                 using var db = GetConnection() as LiteDatabase;
                 var col = db?.GetCollection<T>(_collectionName)!;
                 return col.Query().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
+
+        public T GetBy<T>(BsonExpression expression)
+        {
+            try
+            {
+                using var db = GetConnection() as LiteDatabase;
+                var col = db?.GetCollection<T>(_collectionName)!;
+                return col.FindOne(expression)!;
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
+
+        public List<T> GetCollectionBy<T>(BsonExpression expression)
+        {
+            try
+            {
+                using var db = GetConnection() as LiteDatabase;
+                var col = db?.GetCollection<T>(_collectionName)!;
+                return col.Find(expression)!.ToList();
             }
             catch (Exception ex)
             {
