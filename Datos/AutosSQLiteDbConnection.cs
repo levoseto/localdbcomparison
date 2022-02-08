@@ -1,17 +1,16 @@
 ﻿using Datos.Drivers;
 using Datos.Helpers;
 using Estructuras;
-using LiteDB;
 
 namespace Datos
 {
-    public class AutosDbConnection
+    public class AutosSQLiteDbConnection
     {
-        private readonly LiteDbDriverDatabase _driverDb;
+        private readonly SQLiteDriverDatabase _driverDb;
 
-        public AutosDbConnection()
+        public AutosSQLiteDbConnection()
         {
-            _driverDb = new LiteDbDriverDatabase(@"C:\Git\LiteDB\Examples\Autos.db", nameof(Automovil));
+            _driverDb = new SQLiteDriverDatabase(@"C:\Git\LiteDB\Examples\AutosSQLite.db", nameof(Automovil));
         }
 
         public List<Automovil> ObtieneTodos()
@@ -36,8 +35,8 @@ namespace Datos
         {
             try
             {
-                var expresionABuscar = Query.EQ("idAuto", idAuto);
-                return _driverDb.GetBy<Automovil>(expresionABuscar);
+                //return _driverDb.GetBy<Automovil>(expresionABuscar);
+                return new Automovil();
             }
             catch (Exception)
             {
@@ -52,20 +51,7 @@ namespace Datos
                 var coleccionAutos = JsonMapperHelper.LeeElementoDesdeArchivo<List<Automovil>>("Autos.json");
                 if (!(coleccionAutos?.Count > 0)) return false;
 
-                List<BsonDocument> autosAInsertar = new List<BsonDocument>();
-
-                coleccionAutos.ForEach(automovil =>
-                {
-                    BsonDocument autoDoc = new BsonDocument();
-                    autoDoc["IdAuto"] = automovil.IdAuto;
-                    autoDoc["Marca"] = automovil.Marca;
-                    autoDoc["Modelo"] = automovil.Modelo;
-                    autoDoc["Año"] = automovil.Año;
-                    autoDoc["Serie"] = automovil.Serie;
-                    autosAInsertar.Add(autoDoc);
-                });
-
-                _driverDb.InsertAll(autosAInsertar);
+                _driverDb.InsertAll(coleccionAutos);
                 return true;
             }
             catch (Exception ex)
@@ -109,7 +95,7 @@ namespace Datos
         {
             try
             {
-                automovil.IdAuto = MaxIdAInsertar();
+                //automovil.IdAuto = MaxIdAInsertar();
                 _driverDb.Insert(automovil);
                 return true;
             }

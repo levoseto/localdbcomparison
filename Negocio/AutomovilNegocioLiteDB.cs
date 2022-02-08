@@ -3,13 +3,13 @@ using Estructuras;
 
 namespace Negocio
 {
-    public class AutomovilNegocio
+    public class AutomovilNegocioLiteDB
     {
-        private readonly AutosDbConnection _connection;
+        private readonly AutosLiteDbConnection _connection;
 
-        public AutomovilNegocio()
+        public AutomovilNegocioLiteDB()
         {
-            _connection = new AutosDbConnection();
+            _connection = new AutosLiteDbConnection();
         }
 
         public bool LlenaMasivoAutos()

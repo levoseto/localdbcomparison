@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Estructuras.Interfaces
 {
-    public interface ISQLDefinition
+    public interface ISQLiteDefinition
     {
         void InsertAll<T>(List<T> elements);
     }

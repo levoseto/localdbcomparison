@@ -1,7 +1,7 @@
 ﻿using Estructuras;
 using Negocio;
 
-var autos = new AutomovilNegocio();
+var autos = new AutomovilNegocioLiteDB();
 byte opcion;
 
 do

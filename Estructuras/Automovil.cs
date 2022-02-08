@@ -1,4 +1,5 @@
 ﻿using LiteDB;
+using SQLite;
 using System.Text.Json.Serialization;
 
 namespace Estructuras
@@ -6,9 +7,11 @@ namespace Estructuras
     public class Automovil
     {
         [BsonField("_id")]
+        [Ignore]
         public ObjectId? ID { get; set; }
 
         [JsonPropertyName("idAuto")]
+        [PrimaryKey]
         public int IdAuto { get; set; }
 
         [JsonPropertyName("marca")]
