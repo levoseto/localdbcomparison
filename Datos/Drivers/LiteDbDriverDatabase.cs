@@ -2,6 +2,7 @@
 {
     using Estructuras.Interfaces;
     using LiteDB;
+    using System.Diagnostics;
 
     public class LiteDbDriverDatabase : IDriverDatabase, IBsonDefinition
     {
@@ -14,14 +15,15 @@
             _collectionName = collectionName;
         }
 
-        public void Delete<T>(T element)
+        public void Delete<T>(string objectId)
         {
             try
             {
-                var guid = element?.GetType().GUID;
+                var guid = new ObjectId(objectId);
+                Debug.WriteLine($"Que es: {guid}");
                 using var db = GetConnection() as LiteDatabase;
                 var col = db?.GetCollection<T>(_collectionName);
-                col?.Delete(guid);
+                var resultado = col?.Delete(guid);
             }
             catch (Exception ex)
             {

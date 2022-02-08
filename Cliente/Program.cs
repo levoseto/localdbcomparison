@@ -48,6 +48,22 @@ do
                     : "Auto no pudo ser insertado\n");
                 break;
 
+            case 2:
+                break;
+
+            case 3:
+                Console.WriteLine("Ingresa el ID del objeto a eliminar: ");
+                var guid = Console.ReadLine()!;
+                Console.WriteLine($"Este es el id a eliminar: {guid}");
+                if (autos.EliminarAutomovil(guid))
+                {
+                    Console.WriteLine($"Se ha eliminado el objeto con ID: {guid}");
+                }
+                else
+                    Console.WriteLine($"No se pudo eliminar el objeto debido a que este no existe.");
+
+                break;
+
             case 4:
                 var todos = autos.Get();
                 if (todos?.Count > 0)

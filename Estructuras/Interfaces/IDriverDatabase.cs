@@ -12,6 +12,6 @@ namespace Estructuras.Interfaces
 
         void Update<T>(T element);
 
-        void Delete<T>(T element);
+        void Delete<T>(string element);
     }
 }

@@ -44,5 +44,9 @@ namespace Datos.Drivers
         {
             throw new NotImplementedException();
         }
+
+        public void Delete<T>(string element)
+        {
+        }
     }
 }

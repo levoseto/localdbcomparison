@@ -39,15 +39,12 @@ namespace Negocio
 
         public bool InsertaAuto(Automovil automovil)
         {
-            try
-            {
-                return _connection.InsertAutomovil(automovil);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return false;
-            }
+            return _connection.InsertAutomovil(automovil);
+        }
+
+        public bool EliminarAutomovil(string objectId)
+        {
+            return _connection.EliminarAutomovil(objectId);
         }
     }
 }

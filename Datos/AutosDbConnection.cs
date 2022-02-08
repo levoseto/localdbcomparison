@@ -137,5 +137,18 @@ namespace Datos
             var max = ObtieneTodos()?.Count > 0 ? ObtieneTodos().Max(auto => auto.IdAuto) : 0;
             return max + 1;
         }
+
+        public bool EliminarAutomovil(string objectId)
+        {
+            try
+            {
+                _driverDb.Delete<Automovil>(objectId);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex.GetBaseException();
+            }
+        }
     }
 }
