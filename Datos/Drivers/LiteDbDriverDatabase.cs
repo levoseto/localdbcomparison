@@ -31,21 +31,6 @@
             }
         }
 
-        public void DeleteBy<T>(BsonExpression expression)
-        {
-            var search = GetBy<T>(expression);
-
-            try
-            {
-                using var db = GetConnection() as LiteDatabase;
-                var col = db?.GetCollection<T>(_collectionName);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
         public List<T> GetAll<T>()
         {
             try
