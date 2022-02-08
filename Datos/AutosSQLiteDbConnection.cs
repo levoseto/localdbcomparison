@@ -1,6 +1,7 @@
 ﻿using Datos.Drivers;
 using Datos.Helpers;
 using Estructuras;
+using SQLite;
 
 namespace Datos
 {
@@ -10,12 +11,22 @@ namespace Datos
 
         public AutosSQLiteDbConnection()
         {
-            _driverDb = new SQLiteDriverDatabase(@"C:\Git\LiteDB\Examples\AutosSQLite.db", nameof(Automovil));
+            _driverDb = new SQLiteDriverDatabase(@"C:\Git\LiteDB\Examples\AutosSQLite.db");
         }
 
         public List<Automovil> ObtieneTodos()
         {
-            return _driverDb.GetAll<Automovil>();
+            try
+            {
+                using (var db = _driverDb.GetConnection() as SQLiteConnection)
+                {
+                    return db?.Table<Automovil>().ToList()!;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public Automovil GetById(int id)
@@ -35,8 +46,10 @@ namespace Datos
         {
             try
             {
-                //return _driverDb.GetBy<Automovil>(expresionABuscar);
-                return new Automovil();
+                using (var db = _driverDb.GetConnection() as SQLiteConnection)
+                {
+                    return db?.Table<Automovil>().FirstOrDefault(auto => auto.IdAuto == idAuto)!;
+                }
             }
             catch (Exception)
             {
@@ -72,7 +85,6 @@ namespace Datos
                 {
                     var automovil = new Automovil
                     {
-                        //ID = ObjectId.NewObjectId(),
                         Año = item.Año,
                         IdAuto = item.IdAuto,
                         Marca = item.Marca,
@@ -95,7 +107,6 @@ namespace Datos
         {
             try
             {
-                //automovil.IdAuto = MaxIdAInsertar();
                 _driverDb.Insert(automovil);
                 return true;
             }
@@ -116,12 +127,6 @@ namespace Datos
             {
                 throw ex.GetBaseException();
             }
-        }
-
-        private int MaxIdAInsertar()
-        {
-            var max = ObtieneTodos()?.Count > 0 ? ObtieneTodos().Max(auto => auto.IdAuto) : 0;
-            return max + 1;
         }
 
         public bool EliminarAutomovil(string objectId)

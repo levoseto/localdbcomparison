@@ -1,25 +1,26 @@
 ﻿using Estructuras;
 using Estructuras.Interfaces;
-using LiteDB;
 using SQLite;
 
 namespace Datos.Drivers
 {
     public class SQLiteDriverDatabase : IDriverDatabase, ISQLiteDefinition
     {
-        private readonly string _collectionName;
         private readonly string _connectionString;
 
-        public SQLiteDriverDatabase(string connectionString, string collectionName)
+        public SQLiteDriverDatabase(string connectionString)
         {
             _connectionString = connectionString;
-            _collectionName = collectionName;
         }
 
         public List<T> GetAll<T>()
         {
             try
             {
+                using (var db = GetConnection() as SQLiteConnection)
+                {
+                    //db?.Table<T>().ToList();
+                }
                 return new List<T>();
             }
             catch (Exception)
@@ -30,7 +31,6 @@ namespace Datos.Drivers
 
         public object GetConnection()
         {
-            // Get an absolute path to the database file
             var databasePath = _connectionString;
             return new SQLiteConnection(databasePath);
         }
