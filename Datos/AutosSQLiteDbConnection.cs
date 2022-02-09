@@ -11,7 +11,7 @@ namespace Datos
 
         public AutosSQLiteDbConnection()
         {
-            _driverDb = new SQLiteDriverDatabase(@"C:\Git\LiteDB\Examples\AutosSQLite.db");
+            _driverDb = new SQLiteDriverDatabase(@"E:\Git\LiteDB\Examples\AutosSQLite.db");
         }
 
         public List<Automovil> ObtieneTodos()

@@ -65,7 +65,7 @@ do
                     : "Auto no pudo ser insertado\n en SQLite");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
 
                 break;
 
@@ -101,7 +101,7 @@ do
                     Console.WriteLine($"No se pudo eliminar el objeto debido a que este no existe. SQLite");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
 
                 break;
 
@@ -111,23 +111,23 @@ do
                 var todos = autosLite.Get();
                 if (todos?.Count > 0)
                 {
-                    var contador = 0;
-                    foreach (var item in todos)
-                    {
-                        contador++;
-                        Console.WriteLine($"<----- Bloque SQLite {contador} ----->");
-                        Console.WriteLine($"Object Id: {item.ID}");
-                        Console.WriteLine($"Id Auto: {item.IdAuto}");
-                        Console.WriteLine($"Marca: {item.Marca}");
-                        Console.WriteLine($"Modelo: {item.Modelo}");
-                        Console.WriteLine($"Año: {item.Año}");
-                        Console.WriteLine($"VIN: {item.Serie}");
-                        Console.WriteLine($"</----- Bloque SQLite {contador} ----->");
-                    }
+                    //var contador = 0;
+                    //foreach (var item in todos)
+                    //{
+                    //    contador++;
+                    //    Console.WriteLine($"<----- Bloque LiteDB {contador} ----->");
+                    //    Console.WriteLine($"Object Id: {item.ID}");
+                    //    Console.WriteLine($"Id Auto: {item.IdAuto}");
+                    //    Console.WriteLine($"Marca: {item.Marca}");
+                    //    Console.WriteLine($"Modelo: {item.Modelo}");
+                    //    Console.WriteLine($"Año: {item.Año}");
+                    //    Console.WriteLine($"VIN: {item.Serie}");
+                    //    Console.WriteLine($"</----- Bloque LiteDB {contador} ----->");
+                    //}
                 }
                 else
                 {
-                    Console.WriteLine("No hay datos a mostrar\n en LiteDB");
+                    Console.WriteLine("No hay datos a mostrar en LiteDB\n");
                 }
 
                 timerLiteDB.Stop();
@@ -138,27 +138,27 @@ do
                 var todosSQLite = autosSqlite.Get();
                 if (todosSQLite?.Count > 0)
                 {
-                    var contador = 0;
-                    foreach (var item in todosSQLite)
-                    {
-                        contador++;
-                        Console.WriteLine($"<----- Bloque SQLite {contador} ----->");
-                        Console.WriteLine($"Object Id: {item.ID}");
-                        Console.WriteLine($"Id Auto: {item.IdAuto}");
-                        Console.WriteLine($"Marca: {item.Marca}");
-                        Console.WriteLine($"Modelo: {item.Modelo}");
-                        Console.WriteLine($"Año: {item.Año}");
-                        Console.WriteLine($"VIN: {item.Serie}");
-                        Console.WriteLine($"</----- Bloque SQLite {contador} ----->");
-                    }
+                    //var contador = 0;
+                    //foreach (var item in todosSQLite)
+                    //{
+                    //    contador++;
+                    //    Console.WriteLine($"<----- Bloque SQLite {contador} ----->");
+                    //    Console.WriteLine($"Object Id: {item.ID}");
+                    //    Console.WriteLine($"Id Auto: {item.IdAuto}");
+                    //    Console.WriteLine($"Marca: {item.Marca}");
+                    //    Console.WriteLine($"Modelo: {item.Modelo}");
+                    //    Console.WriteLine($"Año: {item.Año}");
+                    //    Console.WriteLine($"VIN: {item.Serie}");
+                    //    Console.WriteLine($"</----- Bloque SQLite {contador} ----->");
+                    //}
                 }
                 else
                 {
-                    Console.WriteLine("No hay datos a mostrar\n");
+                    Console.WriteLine("No hay datos a mostrar en SQLite \n");
                 }
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
 
                 break;
 
@@ -168,14 +168,14 @@ do
                 Console.WriteLine("Id para buscar el auto:");
                 var stringId = int.Parse(Console.ReadLine()!);
                 var itemAutoLiteDB = autosLite.ObtienePorIdEnColeccion(stringId);
-                Console.WriteLine($"<----- Bloque LiteDB {stringId} ----->");
-                Console.WriteLine($"Object Id: {itemAutoLiteDB.ID}");
-                Console.WriteLine($"Id Auto: {itemAutoLiteDB.IdAuto}");
-                Console.WriteLine($"Marca: {itemAutoLiteDB.Marca}");
-                Console.WriteLine($"Modelo: {itemAutoLiteDB.Modelo}");
-                Console.WriteLine($"Año: {itemAutoLiteDB.Año}");
-                Console.WriteLine($"VIN: {itemAutoLiteDB.Serie}");
-                Console.WriteLine($"</----- Bloque LiteDB {stringId} ----->");
+                //Console.WriteLine($"<----- Bloque LiteDB {stringId} ----->");
+                //Console.WriteLine($"Object Id: {itemAutoLiteDB.ID}");
+                //Console.WriteLine($"Id Auto: {itemAutoLiteDB.IdAuto}");
+                //Console.WriteLine($"Marca: {itemAutoLiteDB.Marca}");
+                //Console.WriteLine($"Modelo: {itemAutoLiteDB.Modelo}");
+                //Console.WriteLine($"Año: {itemAutoLiteDB.Año}");
+                //Console.WriteLine($"VIN: {itemAutoLiteDB.Serie}");
+                //Console.WriteLine($"</----- Bloque LiteDB {stringId} ----->");
 
                 timerLiteDB.Stop();
                 Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
@@ -183,17 +183,17 @@ do
                 timerSQLite = Stopwatch.StartNew();
 
                 var itemAutoSQLite = autosSqlite.ObtienePorIdEnColeccion(stringId);
-                Console.WriteLine($"<----- Bloque SQLite {stringId} ----->");
-                Console.WriteLine($"Object Id: {itemAutoSQLite.ID}");
-                Console.WriteLine($"Id Auto: {itemAutoSQLite.IdAuto}");
-                Console.WriteLine($"Marca: {itemAutoSQLite.Marca}");
-                Console.WriteLine($"Modelo: {itemAutoSQLite.Modelo}");
-                Console.WriteLine($"Año: {itemAutoSQLite.Año}");
-                Console.WriteLine($"VIN: {itemAutoSQLite.Serie}");
-                Console.WriteLine($"</----- Bloque SQLite {stringId} ----->");
+                //Console.WriteLine($"<----- Bloque SQLite {stringId} ----->");
+                //Console.WriteLine($"Object Id: {itemAutoSQLite.ID}");
+                //Console.WriteLine($"Id Auto: {itemAutoSQLite.IdAuto}");
+                //Console.WriteLine($"Marca: {itemAutoSQLite.Marca}");
+                //Console.WriteLine($"Modelo: {itemAutoSQLite.Modelo}");
+                //Console.WriteLine($"Año: {itemAutoSQLite.Año}");
+                //Console.WriteLine($"VIN: {itemAutoSQLite.Serie}");
+                //Console.WriteLine($"</----- Bloque SQLite {stringId} ----->");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
                 break;
 
             case 6:
@@ -202,14 +202,14 @@ do
                 var stringId2 = int.Parse(Console.ReadLine()!);
 
                 var itemAutoLiteDB2 = autosLite.ObtienePorIdEnQuery(stringId2);
-                Console.WriteLine($"<----- Bloque LiteDB {stringId2} ----->");
-                Console.WriteLine($"Object Id: {itemAutoLiteDB2.ID}");
-                Console.WriteLine($"Id Auto: {itemAutoLiteDB2.IdAuto}");
-                Console.WriteLine($"Marca: {itemAutoLiteDB2.Marca}");
-                Console.WriteLine($"Modelo: {itemAutoLiteDB2.Modelo}");
-                Console.WriteLine($"Año: {itemAutoLiteDB2.Año}");
-                Console.WriteLine($"VIN: {itemAutoLiteDB2.Serie}");
-                Console.WriteLine($"</----- Bloque LiteDB {stringId2} ----->");
+                //Console.WriteLine($"<----- Bloque LiteDB {stringId2} ----->");
+                //Console.WriteLine($"Object Id: {itemAutoLiteDB2.ID}");
+                //Console.WriteLine($"Id Auto: {itemAutoLiteDB2.IdAuto}");
+                //Console.WriteLine($"Marca: {itemAutoLiteDB2.Marca}");
+                //Console.WriteLine($"Modelo: {itemAutoLiteDB2.Modelo}");
+                //Console.WriteLine($"Año: {itemAutoLiteDB2.Año}");
+                //Console.WriteLine($"VIN: {itemAutoLiteDB2.Serie}");
+                //Console.WriteLine($"</----- Bloque LiteDB {stringId2} ----->");
 
                 timerLiteDB.Stop();
                 Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
@@ -217,17 +217,17 @@ do
                 timerSQLite = Stopwatch.StartNew();
 
                 var itemAutoSQLite2 = autosSqlite.ObtienePorIdEnQuery(stringId2);
-                Console.WriteLine($"<----- Bloque SQLite {stringId2} ----->");
-                Console.WriteLine($"Object Id: {itemAutoSQLite2.ID}");
-                Console.WriteLine($"Id Auto: {itemAutoSQLite2.IdAuto}");
-                Console.WriteLine($"Marca: {itemAutoSQLite2.Marca}");
-                Console.WriteLine($"Modelo: {itemAutoSQLite2.Modelo}");
-                Console.WriteLine($"Año: {itemAutoSQLite2.Año}");
-                Console.WriteLine($"VIN: {itemAutoSQLite2.Serie}");
-                Console.WriteLine($"</----- Bloque SQLite {stringId2} ----->");
+                //Console.WriteLine($"<----- Bloque SQLite {stringId2} ----->");
+                //Console.WriteLine($"Object Id: {itemAutoSQLite2.ID}");
+                //Console.WriteLine($"Id Auto: {itemAutoSQLite2.IdAuto}");
+                //Console.WriteLine($"Marca: {itemAutoSQLite2.Marca}");
+                //Console.WriteLine($"Modelo: {itemAutoSQLite2.Modelo}");
+                //Console.WriteLine($"Año: {itemAutoSQLite2.Año}");
+                //Console.WriteLine($"VIN: {itemAutoSQLite2.Serie}");
+                //Console.WriteLine($"</----- Bloque SQLite {stringId2} ----->");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
 
                 break;
 
@@ -245,7 +245,7 @@ do
                 Console.WriteLine(stateSQLite ? "Llenó los datos con foreach en SQLite" : "No se pudo llenar la información a la BD en SQLite");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
                 break;
 
             case 8:
@@ -262,7 +262,7 @@ do
                 Console.WriteLine(stateSQLite2 ? "Llenó los datos masivos con Bulk SQLite" : "No se pudo llenar la información a la BD SQLite");
 
                 timerSQLite.Stop();
-                Console.WriteLine($"Tiempo total de operación LiteDB: {timerLiteDB.Elapsed}");
+                Console.WriteLine($"Tiempo total de operación SQLite: {timerSQLite.Elapsed}");
                 break;
         }
 
