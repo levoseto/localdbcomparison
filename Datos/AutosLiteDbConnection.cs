@@ -11,7 +11,7 @@ namespace Datos
 
         public AutosLiteDbConnection()
         {
-            _driverDb = new LiteDbDriverDatabase(@"E:\Git\LiteDB\Examples\AutosLiteDB.db", nameof(Automovil));
+            _driverDb = new LiteDbDriverDatabase(@"C:\Git\LiteDB\Examples\AutosLiteDB.db", nameof(Automovil));
         }
 
         public List<Automovil> ObtieneTodos()
