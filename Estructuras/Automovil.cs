@@ -11,7 +11,6 @@ namespace Estructuras
         public ObjectId? ID { get; set; }
 
         [JsonPropertyName("idAuto")]
-        [PrimaryKey]
         public int IdAuto { get; set; }
 
         [JsonPropertyName("marca")]
